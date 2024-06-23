@@ -1,0 +1,33 @@
+{
+  "app/page.tsx -> ../components/editor": {
+    "id": "app/page.tsx -> ../components/editor",
+    "files": [
+      "static/css/_app-pages-browser_components_editor_js.css",
+      "static/chunks/_app-pages-browser_components_editor_js.js"
+    ]
+  },
+  "node_modules/@blueprintjs/icons/lib/esm/iconLoader.js -> ./paths-loaders/allPathsLoader": {
+    "id": "node_modules/@blueprintjs/icons/lib/esm/iconLoader.js -> ./paths-loaders/allPathsLoader",
+    "files": [
+      "static/chunks/blueprint-icons-all-paths-loader.js"
+    ]
+  },
+  "node_modules/@blueprintjs/icons/lib/esm/iconLoader.js -> ./paths-loaders/splitPathsBySizeLoader": {
+    "id": "node_modules/@blueprintjs/icons/lib/esm/iconLoader.js -> ./paths-loaders/splitPathsBySizeLoader",
+    "files": [
+      "static/chunks/blueprint-icons-split-paths-by-size-loader.js"
+    ]
+  },
+  "node_modules/@blueprintjs/icons/lib/esm/paths-loaders/allPathsLoader.js -> ../allPaths": {
+    "id": "node_modules/@blueprintjs/icons/lib/esm/paths-loaders/allPathsLoader.js -> ../allPaths",
+    "files": []
+  },
+  "node_modules/@blueprintjs/icons/lib/esm/paths-loaders/splitPathsBySizeLoader.js -> ../generated/16px/paths": {
+    "id": "node_modules/@blueprintjs/icons/lib/esm/paths-loaders/splitPathsBySizeLoader.js -> ../generated/16px/paths",
+    "files": []
+  },
+  "node_modules/@blueprintjs/icons/lib/esm/paths-loaders/splitPathsBySizeLoader.js -> ../generated/20px/paths": {
+    "id": "node_modules/@blueprintjs/icons/lib/esm/paths-loaders/splitPathsBySizeLoader.js -> ../generated/20px/paths",
+    "files": []
+  }
+}
