@@ -1,5 +1,7 @@
 'use client';
 
+import '/components/blueprint.css';
+
 import dynamic from 'next/dynamic';
 const Editor = dynamic(() => import('../components/editor'), {
   ssr: false,
