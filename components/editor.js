@@ -111,11 +111,12 @@ const ActionControls2 = ({ store }) => {
       <Button
         minimal
         onClick={() => {
-          store.setElementsPixelRatio(2);
+
           store.saveAsPDF({
             pixelRatio: 2,
             includeBleed: true,
-            cropMarkSize: 20,
+            bleed: convertToPx("mm", 300, 3),
+            cropMarkSize: convertToPx("mm", 300, 3),
           });
         }}
       >
