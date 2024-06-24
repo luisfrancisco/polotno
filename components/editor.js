@@ -24,6 +24,7 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 import { createStore } from "polotno/model/store";
 import { DEFAULT_SIZES } from "polotno/side-panel/size-panel";
 
+// Define sections for the side panel
 const sections = [
   TextSection,
   PhotosSection,
@@ -35,17 +36,19 @@ const sections = [
   SizeSection,
 ];
 
+// Create the store with the provided key
 const store = createStore({
   key: "nFA5H9elEytDyPyvKL7T", // you can create it here: https://polotno.com/cabinet/
-  // you can hide back-link on a paid license
-  // but it will be good if you can keep it for Polotno project support
   showCredit: false,
 });
-const page = store.addPage();
+
+// Set store unit to millimeters and dpi to 300
 store.setUnit({
   unit: "mm", // mm, cm, in, pt, px
   dpi: 300,
 });
+
+// Function to convert units to pixels
 function convertToPx(unit, dpi, unitVal) {
   return unitToPx({
     unit,
@@ -53,6 +56,8 @@ function convertToPx(unit, dpi, unitVal) {
     unitVal,
   });
 }
+
+// Clear the default sizes array and define new sizes
 DEFAULT_SIZES.length = 0; // Clear the array
 DEFAULT_SIZES.push(
   ["Standard", 63.5, 88, "mm"],
@@ -75,17 +80,22 @@ DEFAULT_SIZES.push(
   ["Slim", 45, 90, "mm"]
 );
 
-// show bleed area on the <Workspace />
+// Configure store bleed and ruler settings
 store.toggleBleed(true);
 store.toggleRulers(true);
 
+// Set the initial size for the store
 store.setSize(convertToPx("mm", 300, 63), convertToPx("mm", 300, 88), "true");
+
+// Add a page to the store and configure its bleed and size
+const page = store.addPage({});
 store.activePage.set({
   bleed: convertToPx("mm", 300, 3),
   width: convertToPx("mm", 300, 63),
   height: convertToPx("mm", 300, 88),
 }); // set bleed in pixels
 
+// Action controls component
 const ActionControls2 = ({ store }) => {
   return (
     <div>
@@ -133,6 +143,7 @@ const ActionControls2 = ({ store }) => {
   );
 };
 
+// Editor component
 export const Editor = () => {
   return (
     <PolotnoContainer style={{ width: "100vw", height: "100vh" }}>
@@ -146,7 +157,7 @@ export const Editor = () => {
             ActionControls: ActionControls2,
           }}
         />
-        <Workspace store={store} />
+        <Workspace store={store} bleedColor="rgba(130, 54, 236, 0.25)" />
         <ZoomButtons store={store} />
         <PagesTimeline store={store} />
       </WorkspaceWrap>

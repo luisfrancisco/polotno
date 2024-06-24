@@ -6,7 +6,7 @@
 }
 
 .polotno-side-panel-tab.active {
-  color: #6435d0 !important;
+  color: #8236ec !important;
   background: #f9f7fe !important;
 }
 
@@ -3191,7 +3191,7 @@ a > .bp5-dark .bp5-running-text code{
   box-shadow:inset 0 0 0 1px rgba(17, 20, 24, 0.2), 0 1px 2px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-primary:active, .bp5-button.bp5-intent-primary.bp5-active{
-  background-color:#6435d0;
+  background-color:#8236ec;
   box-shadow:inset 0 0 0 1px rgba(17, 20, 24, 0.2), 0 1px 2px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-primary:disabled, .bp5-button.bp5-intent-primary.bp5-disabled{
@@ -3443,12 +3443,12 @@ a > .bp5-dark .bp5-running-text code{
 .bp5-button.bp5-minimal:active, .bp5-button.bp5-minimal.bp5-active{
   background:#f9f7fe;
   box-shadow:none;
-  color:#6435d0;
+  color:#8236ec;
 }
 
 .bp5-icon.bp5-active, .bp5-icon-large.bp5-active, .bp5-active svg {
-  color:#6435d0;
-  fill: #6435d0;
+  color:#8236ec;
+  fill: #8236ec;
 }
 
 .bp5-button.bp5-minimal:disabled, .bp5-button.bp5-minimal:disabled:hover, .bp5-button.bp5-minimal.bp5-disabled, .bp5-button.bp5-minimal.bp5-disabled:hover{
