@@ -20,7 +20,7 @@ import { DownloadButton } from "./download-button";
 import { IconsSection } from "./sections/icons-section";
 
 import "@blueprintjs/core/lib/css/blueprint.css";
-
+import { unstable_useHtmlTextRender } from 'polotno/config';
 import { createStore } from "polotno/model/store";
 import { DEFAULT_SIZES } from "polotno/side-panel/size-panel";
 
@@ -35,6 +35,8 @@ const sections = [
   LayersSection,
   SizeSection,
 ];
+
+unstable_useHtmlTextRender(true);
 
 // Create the store with the provided key
 const store = createStore({
