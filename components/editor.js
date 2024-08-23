@@ -18,11 +18,14 @@ import { Workspace } from "polotno/canvas/workspace";
 import { unitToPx } from "polotno/utils/unit";
 import { DownloadButton } from "./download-button";
 import { IconsSection } from "./sections/icons-section";
+import { QrSection } from "./sections/qr-section";
+import { AIWriteMenu } from './ai-text';
 
 import "@blueprintjs/core/lib/css/blueprint.css";
 import { unstable_useHtmlTextRender } from 'polotno/config';
 import { createStore } from "polotno/model/store";
 import { DEFAULT_SIZES } from "polotno/side-panel/size-panel";
+import { loadFile } from './file';
 
 // Define sections for the side panel
 const sections = [
@@ -33,6 +36,7 @@ const sections = [
   BackgroundSection,
   UploadSection,
   LayersSection,
+  QrSection,
   SizeSection,
 ];
 
@@ -146,25 +150,50 @@ const ActionControls2 = ({ store }) => {
   );
 };
 
+const handleDrop = (ev) => {
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+
+  // skip the case if we dropped DOM element from side panel
+  // in that case Safari will have more data in "items"
+  if (ev.dataTransfer.files.length !== ev.dataTransfer.items.length) {
+    return;
+  }
+  // Use DataTransfer interface to access the file(s)
+  for (let i = 0; i < ev.dataTransfer.files.length; i++) {
+    loadFile(ev.dataTransfer.files[i], store);
+  }
+};
+
 // Editor component
 export const Editor = () => {
   return (
-    <PolotnoContainer style={{ width: "100vw", height: "100vh" }}>
-      <SidePanelWrap>
-        <SidePanel store={store} sections={sections} />
-      </SidePanelWrap>
-      <WorkspaceWrap>
-        <Toolbar
-          store={store}
-          components={{
-            ActionControls: ActionControls2,
-          }}
-        />
-        <Workspace store={store} bleedColor="rgba(130, 54, 236, 0.25)" />
-        <ZoomButtons store={store} />
-        <PagesTimeline store={store} />
-      </WorkspaceWrap>
-    </PolotnoContainer>
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      onDrop={handleDrop}
+    >
+      <PolotnoContainer style={{ width: "100vw", height: "100vh" }}>
+        <SidePanelWrap>
+          <SidePanel store={store} sections={sections} />
+        </SidePanelWrap>
+        <WorkspaceWrap>
+          <Toolbar
+            store={store}
+            components={{
+              ActionControls: ActionControls2,TextAIWrite: AIWriteMenu,
+            }}
+          />
+          <Workspace store={store} bleedColor="rgba(130, 54, 236, 0.25)" components={{  TextAIWrite: AIWriteMenu }} />
+          <ZoomButtons store={store} />
+          <PagesTimeline store={store} />
+        </WorkspaceWrap>
+      </PolotnoContainer>
+    </div>
   );
 };
 

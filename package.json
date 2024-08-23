@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "jszip": "^3.10.1",
+    "localforage": "^1.10.0",
     "next": "14.2.4",
     "polotno": "^2.12.2",
+    "qrcode": "^1.5.4",
     "react": "^18",
     "react-dom": "^18"
   },
