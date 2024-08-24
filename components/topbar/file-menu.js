@@ -26,7 +26,6 @@ export const FileMenu = observer(({ store, project }) => {
               icon="plus"
               text="Create new design"
               onClick={() => {
-                console.log(project);
                 project.createNewDesign();
               }}
             />
