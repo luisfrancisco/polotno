@@ -18,17 +18,34 @@ import { Workspace } from "polotno/canvas/workspace";
 import { unitToPx } from "polotno/utils/unit";
 import { DownloadButton } from "./download-button";
 import { IconsSection } from "./sections/icons-section";
+import { MyDesignsSection } from "./sections/my-designs-section"
 import { QrSection } from "./sections/qr-section";
 import { AIWriteMenu } from './ai-text';
-
+import  Topbar  from './topbar/topbar'
 import "@blueprintjs/core/lib/css/blueprint.css";
+import './blueprint.css';
 import { unstable_useHtmlTextRender } from 'polotno/config';
 import { createStore } from "polotno/model/store";
+import { createProject, ProjectContext } from './project';
 import { DEFAULT_SIZES } from "polotno/side-panel/size-panel";
 import { loadFile } from './file';
+import { setTranslations } from 'polotno/config';
+import { useProject } from "./project";
+import { BarcodeSection } from "./sections/bar-section"
+
+import fr from './translations/fr';
+import en from './translations/en';
+import id from './translations/id';
+import ru from './translations/ru';
+import ptBr from './translations/pt-br';
+
+// load default translations
+setTranslations(en);
+
 
 // Define sections for the side panel
 const sections = [
+  MyDesignsSection,
   TextSection,
   PhotosSection,
   IconsSection,
@@ -36,6 +53,7 @@ const sections = [
   BackgroundSection,
   UploadSection,
   LayersSection,
+  BarcodeSection,
   QrSection,
   SizeSection,
 ];
@@ -101,8 +119,14 @@ store.activePage.set({
   height: convertToPx("mm", 300, 88),
 }); // set bleed in pixels
 
+const project = createProject({ store });
+window.project = project;
+
+
+
 // Action controls component
 const ActionControls2 = ({ store }) => {
+  const project = useProject();
   return (
     <div>
       <DownloadButton store={store} />
@@ -167,7 +191,11 @@ const handleDrop = (ev) => {
 
 // Editor component
 export const Editor = () => {
+  console.log(project);
+
+
   return (
+    <ProjectContext.Provider value={project}>
     <div
       style={{
         width: '100vw',
@@ -177,6 +205,7 @@ export const Editor = () => {
       }}
       onDrop={handleDrop}
     >
+      <Topbar store={store} />
       <PolotnoContainer style={{ width: "100vw", height: "100vh" }}>
         <SidePanelWrap>
           <SidePanel store={store} sections={sections} />
@@ -185,15 +214,21 @@ export const Editor = () => {
           <Toolbar
             store={store}
             components={{
-              ActionControls: ActionControls2,TextAIWrite: AIWriteMenu,
+              ActionControls: ActionControls2,
+              TextAIWrite: AIWriteMenu,
             }}
           />
-          <Workspace store={store} bleedColor="rgba(130, 54, 236, 0.25)" components={{  TextAIWrite: AIWriteMenu }} />
+          <Workspace
+            store={store}
+            bleedColor="rgba(130, 54, 236, 0.25)"
+            components={{ TextAIWrite: AIWriteMenu }}
+          />
           <ZoomButtons store={store} />
           <PagesTimeline store={store} />
         </WorkspaceWrap>
       </PolotnoContainer>
     </div>
+    </ProjectContext.Provider>
   );
 };
 

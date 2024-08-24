@@ -10,9 +10,12 @@ import {
   Popover,
 } from '@blueprintjs/core';
 
+// import { CloudWarning } from '../cloud-warning';
+
 import { SectionTab } from 'polotno/side-panel';
 import FaFolder from '@meronex/icons/fa/FaFolder';
 import { useProject } from '../project';
+import * as api from '../api';
 
 const DesignCard = observer(({ design, store, onDelete }) => {
   const [loading, setLoading] = React.useState(false);
@@ -79,6 +82,13 @@ const DesignCard = observer(({ design, store, onDelete }) => {
                   handleSelect();
                 }}
               />
+              {/* <MenuItem
+                icon="duplicate"
+                text="Copy"
+                onClick={async () => {
+                  handleCopy();
+                }}
+              /> */}
               <MenuItem
                 icon="trash"
                 text="Delete"
@@ -101,25 +111,24 @@ const DesignCard = observer(({ design, store, onDelete }) => {
 
 export const MyDesignsPanel = observer(({ store }) => {
   const project = useProject();
-  const [designsLoading, setDesignsLoading] = React.useState(false);
+  const [designsLoadings, setDesignsLoading] = React.useState(false);
   const [designs, setDesigns] = React.useState([]);
 
   const loadDesigns = async () => {
     setDesignsLoading(true);
-    const list = JSON.parse(localStorage.getItem('localDesigns') || '[]');
+    const list = await api.listDesigns();
     setDesigns(list);
     setDesignsLoading(false);
   };
 
   const handleProjectDelete = ({ id }) => {
-    const updatedDesigns = designs.filter((design) => design.id !== id);
-    setDesigns(updatedDesigns);
-    localStorage.setItem('localDesigns', JSON.stringify(updatedDesigns));
+    setDesigns(designs.filter((design) => design.id !== id));
+    api.deleteDesign({ id });
   };
 
   React.useEffect(() => {
     loadDesigns();
-  }, [project.designsLength]);
+  }, [project.cloudEnabled, project.designsLength]);
 
   const half1 = [];
   const half2 = [];
@@ -143,12 +152,25 @@ export const MyDesignsPanel = observer(({ store }) => {
       >
         Create new design
       </Button>
-      {!designsLoading && !designs.length && (
+      {!designsLoadings && !designs.length && (
         <div style={{ paddingTop: '20px', textAlign: 'center', opacity: 0.6 }}>
           You have no saved designs yet...
         </div>
       )}
-      {designsLoading && (
+      {!project.cloudEnabled && (
+        <div style={{ padding: '15px' }}>
+          {/* <CloudWarning /> */}
+        </div>
+      )}
+      {project.cloudEnabled && (
+        <div style={{ padding: '10px', textAlign: 'center' }}>
+          Cloud data saving powered by{' '}
+          <a href="https://puter.com" target="_blank">
+            Puter.com
+          </a>
+        </div>
+      )}
+      {designsLoadings && (
         <div style={{ padding: '30px' }}>
           <Spinner />
         </div>
@@ -186,12 +208,16 @@ export const MyDesignsPanel = observer(({ store }) => {
   );
 });
 
+// define the new custom section
 export const MyDesignsSection = {
   name: 'my-designs',
   Tab: (props) => (
-    <SectionTab name="My Designs" {...props}>
+    <SectionTab name="My Designs" {...props} >
+     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
       <FaFolder />
+      </div>
     </SectionTab>
   ),
+  // we need observer to update component automatically on any store changes
   Panel: MyDesignsPanel,
 };

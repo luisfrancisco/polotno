@@ -572,11 +572,11 @@ video {
 .relative {
   position: relative;
 }
-.block {
-  display: block;
-}
 .inline-block {
   display: inline-block;
+}
+.inline {
+  display: inline;
 }
 .flex {
   display: flex;
@@ -599,6 +599,7 @@ video {
 }
 
 :root {
+  --primary: 130, 54, 236;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;

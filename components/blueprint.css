@@ -1,13 +1,17 @@
 @charset "UTF-8";
 
 .polotno-side-panel-tab:hover, .active {
-  color: hsl(var(--text-primary)) !important ;
+  color:  #8236ec !important;
   background: #f9fafb !important;
 }
 
 .polotno-side-panel-tab.active {
   color: #8236ec !important;
   background: #f9f7fe !important;
+}
+
+.polotno-panel-container :focus{
+  outline: none !important
 }
 
 .editor.px-container {
@@ -3102,11 +3106,11 @@ a > .bp5-dark .bp5-running-text code{
   flex-direction:row;
   align-items:center;
   border:none;
-  border-radius:2px;
+  border-radius:6px !important;
   cursor:pointer;
   font-size:14px;
   justify-content:center;
-  padding:5px 10px;
+  padding:5px 20px;
   text-align:left;
   vertical-align:middle;
   min-height:30px;
@@ -3179,7 +3183,7 @@ a > .bp5-dark .bp5-running-text code{
   }
 }
 .bp5-button.bp5-intent-primary{
-  background-color:hsl(var(--primary));
+  background-color: #8236ec !important;
   box-shadow:inset 0 0 0 1px rgba(17, 20, 24, 0.2), 0 1px 2px rgba(17, 20, 24, 0.1);
   color:#ffffff;
 }
@@ -3187,11 +3191,11 @@ a > .bp5-dark .bp5-running-text code{
   color:#ffffff;
 }
 .bp5-button.bp5-intent-primary:hover{
-  background-color:hsl(var(--primary));
+  background-color: #5b21b6 !important;
   box-shadow:inset 0 0 0 1px rgba(17, 20, 24, 0.2), 0 1px 2px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-primary:active, .bp5-button.bp5-intent-primary.bp5-active{
-  background-color:#8236ec;
+  background-color:#8236ec !important;
   box-shadow:inset 0 0 0 1px rgba(17, 20, 24, 0.2), 0 1px 2px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-primary:disabled, .bp5-button.bp5-intent-primary.bp5-disabled{
@@ -4577,10 +4581,10 @@ a.bp5-button.bp5-disabled{
   box-shadow:inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 2px 4px rgba(17, 20, 24, 0.4), 0 8px 24px rgba(17, 20, 24, 0.4);
 }
 .bp5-card.bp5-interactive.bp5-selected{
-  box-shadow:0 0 0 3px rgba(76, 144, 240, 0.2), 0 0 0 1px #4c90f0;
+  box-shadow:0 0 0 3px rgba(76, 144, 240, 0.2), 0 0 0 1px #7700ff;
 }
 .bp5-card.bp5-interactive.bp5-selected.bp5-dark, .bp5-dark .bp5-card.bp5-interactive.bp5-selected{
-  box-shadow:0 0 0 3px rgba(138, 187, 255, 0.4), 0 0 0 1px #8abbff;
+  box-shadow:0 0 0 3px rgba(138, 187, 255, 0.4), 0 0 0 1px #7b00ff;
 }
 .bp5-card.bp5-interactive:active{
   box-shadow:0 0 0 1px rgba(17, 20, 24, 0.1), 0 1px 1px rgba(17, 20, 24, 0.2);
