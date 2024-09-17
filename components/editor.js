@@ -213,13 +213,54 @@ const ActionControls2 = ({ store }) => {
   );
 };
 
+// Function to load and modify the template JSON
+async function loadTemplate(templateName, variables) {
+  try {
+    const templateModule = await import(`./templates/${templateName}.json`);
+    const templateJson = JSON.parse(JSON.stringify(templateModule.default));
+
+    // Replace placeholders in the entire JSON structure
+    const replaceInObject = (obj) => {
+      for (let k in obj) {
+        if (typeof obj[k] === "object" && obj[k] !== null) {
+          replaceInObject(obj[k]);
+        } else if (typeof obj[k] === "string") {
+          Object.keys(variables).forEach((varKey) => {
+            const placeholder = `{{${varKey}}}`;
+            obj[k] = obj[k].replace(
+              new RegExp(placeholder, "g"),
+              variables[varKey] || ""
+            );
+          });
+        }
+      }
+    };
+
+    replaceInObject(templateJson);
+    return templateJson;
+  } catch (error) {
+    console.error(`Failed to load template: ${templateName}`, error);
+    return null;
+  }
+}
+
 // Editor component
-export const Editor = () => {
+export const Editor = React.memo(({ templateName = "sellsheet", templateVariables = {} }) => {
   const height = useHeight();
 
   React.useEffect(() => {
-    project.firstLoad();
-  }, []);
+    const applyTemplate = async () => {
+      if (templateName && Object.keys(templateVariables).length > 0) {
+        console.log("Applying Template Variables:", templateVariables);
+        const modifiedTemplate = await loadTemplate(templateName, templateVariables);
+        if (modifiedTemplate) {
+          store.loadJSON(modifiedTemplate);
+        }
+      }
+    };
+
+    applyTemplate();
+  }, [templateName, templateVariables]);
 
   const handleDrop = (ev) => {
     // Prevent default behavior (Prevent file from being opened)
@@ -299,6 +340,6 @@ export const Editor = () => {
       </div>
     </ProjectContext.Provider>
   );
-};
+});
 
 export default Editor;
